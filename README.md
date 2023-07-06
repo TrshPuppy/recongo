@@ -18,4 +18,4 @@ Instead of using `ip a` `traceroute` `ifconfig` etc. etc. you could instead use 
 
 This command will be expected to cross-compile and work on multiple OS's including Linux, Darwin, and Windows. It will also handle the case where the OS is unknown (and return an error, I'm not a magician).
 
-## Stay Tuned for more!!
+## Stay Tuned for More!!
