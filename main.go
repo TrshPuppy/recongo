@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
+
 	"github.com/trshpuppy/recongo/projects/exit"
 	"github.com/trshpuppy/recongo/projects/exit/errors"
-	//"strings"
-
+	"github.com/trshpuppy/recongo/projects/misc/words"
+	
 	// keyvalue "github.com/sam-caldwell/go/v2/projects/KeyValue"
 	// "github.com/sam-caldwell/go/v2/projects/convert"
 	// "github.com/sam-caldwell/go/v2/projects/exit"
@@ -40,10 +42,38 @@ options:
 
 func main(){
 	var output string
-	//var err error
+	var err error
 
-	//exit.OnCondition(len(os.Args) < 2, exit.GeneralError, errors.MissingArguments, usage)
+	//*
 	exit.OnCondition(len(os.Args) < 2, exit.GeneralError, errors.MissingArguments, usage)
+	
+	var command string = strings.TrimLeft(strings.ToLower(strings.TrimSpace(os.Args[1])), words.Hyphen)
+	
+	switch command {
+	case "tiddies":
+		err = fmt.Errorf(errors.InvalidCommandWithDetail, command)
+		output = ""
+
+	case "tats":
+		output = "acceptable"
+		err = nil
+	
+	default:
+		output = ""
+		err = fmt.Errorf(errors.MissingArgWithDetail, command)
+	}
+
+	if err != nil {
+		if (len(os.Args) == 3) && (os.Args[2] == "--printError") {
+			fmt.Println(err)
+		}
+		fmt.Println(err) //*
+		os.Exit(exit.GeneralError)
+	}
+
+	fmt.Println(output)
+
+	os.Exit(0)
 
 	//switch command := strings.TrimLeft(strings.ToLower(strings.TrimSpace(os.Args[1])), words.Hyphen); command {
 	// /*
@@ -106,7 +136,7 @@ func main(){
 	// 	os.Exit(exit.GeneralError)
 	// }
 
-	fmt.Println(output)
+	// fmt.Println(output)
 
-	// os.Exit(0)
+	// // os.Exit(0)
 }
